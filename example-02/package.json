@@ -1,0 +1,11 @@
+{
+  "name": "example-01",
+  "lockfileVersion": 3,
+  "requires": true,
+  "description": "Pixel example one",
+  "author": "Amir Danish <amirdanish126@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/amirCodes/pixelExample.git"
+  }
+}
