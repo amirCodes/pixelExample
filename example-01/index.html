@@ -96,20 +96,48 @@ ttq.track('CompletePayment', {
             <section class="hero">
                 <div class="container">
                     <div class="instructions">
+                        <div class="container">
+                            <h1>Mock E-Commerce Store</h1>
+                            
+                           
+                            <div class="product">
+                              <h2>Product Name</h2>
+                                <p>MYR 88.02</p>
+                              <button id="add-to-cart">Add to Cart</button>
+                              <button id="view-product">View Content</button>
+                              <button id="checkout">Checkout</button>
+                              <button id="complete-purchase">Complete Purchase</button>
+                              <hr/>
+                              <!-- Add Payment Info Button -->
+                            <button id="add-payment-info">Add Payment Info</button>
+                        
+                            <!-- Complete Registration Button -->
+                            <button id="complete-registration">Complete Registration</button>
+                        
+                            <!-- Search Button -->
+                            <button id="search-button">Search</button>
+                                  <!-- Add to wish List Button -->
+                            <button id="AddToWishList">Add To Wish List</button>
+                            </div>
+                          </div>
                         <!-- Payment Info Form -->
                         <div id="payment-info-form" class="form-container">
                           <h2>add your cart info</h2>
                           <form id="payment-form">
                             <label for="card-number">Card Number:</label>
-                            <input type="text" id="card-number" placeholder="Card Number" required>
+                            <input type="text" id="card-number" value="" placeholder="Card Number" >
                     
                             <label for="expiration-date">Expiration Date:</label>
-                            <input type="text" id="expiration-date" placeholder="MM/YY" required>
+                            <input type="text" id="expiration-date" value="" placeholder="MM/YY" >
                     
                             <label for="cvv">CVV:</label>
-                            <input type="text" id="cvv" placeholder="CVV" required>
+                            <input type="text" id="cvv" value="" placeholder="CVV" >
+                            <label for="cvv">Email:</label>
+                            <input type="text" type="email" id="email" value="" placeholder="email" required>
+                            <label for="cvv">Phone:</label>
+                            <input type="text" id="phone" type="phone" value="" placeholder="0112213" required>
                     
-                            <button type="submit" id="Complete-Payment">Complete Payment</button>
+                            <button type="submit"  id="Complete-Payment">Complete Payment</button>
                           </form>
                         </div>
                       </div>
