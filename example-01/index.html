@@ -37,6 +37,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 
 
   ttq.load('CUODNA3C77UE7K4ENB3G');
+  ttq.page();
  // Function to hash a string with SHA-256
  function sha256(str) {
     return crypto.subtle.digest("SHA-256", new TextEncoder().encode(str))
@@ -75,7 +76,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 // 	"phone_number": "<hashed_phone_number>", // string. The phone number of the customer if available. It must be hashed with SHA-256 on the client side.
 // 	"content_id": "<hashed_extenal_id>" // string. Any unique identifier, such as loyalty membership IDs, user IDs, and external cookie IDs.It must be hashed with SHA-256 on the client side.
 // });
-ttq.page();
+
 
 // ttq.track('ViewContent', {
 // 	"contents": [
