@@ -13,7 +13,19 @@
     <script src="https://unpkg.com/scrollreveal@4.0.0/src/scrollreveal.min.js"></script>
     <!-- TikTok Pixel Code Start -->
 <script>
- 
+ // Function to format phone number to E.164
+function formatPhoneNumberToE164(phoneNumber, countryCode = '+1') {
+  // Remove all non-numeric characters except the "+" at the beginning
+  const cleanedPhone = phoneNumber.replace(/[^\d+]/g, '');
+
+  // If the cleaned phone number starts with the country code, return it as is
+  if (cleanedPhone.startsWith(countryCode)) {
+    return cleanedPhone; // Already in E.164 format
+  } else {
+    // Add country code to the cleaned phone number if it doesn't start with it
+    return countryCode + cleanedPhone;
+  }
+}
 
 !function (w, d, t) {
   w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(
@@ -36,7 +48,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
   const email = document.querySelector('#email').value;  // Assuming the email field has an ID of "email"
   const phone = document.querySelector('#phone').value;  // Assuming the phone field has an ID of "phone"
   const externalId = document.querySelector('#user_id').value; // Assuming the user ID is in a field with ID "user_id"
-
+  formatPhoneNumberToE164(phone)
   // Ensure that the email, phone, and externalId are not empty
   if (email && phone && externalId) {
     // Hash email, phone, and external ID
