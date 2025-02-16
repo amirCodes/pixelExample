@@ -22,12 +22,44 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 
 
   ttq.load('CUODNA3C77UE7K4ENB3G');
- 
-  ttq.identify({
-	"email": "<hashed_email_address>", // string. The email of the customer if available. It must be hashed with SHA-256 on the client side.
-	"phone_number": "<hashed_phone_number>", // string. The phone number of the customer if available. It must be hashed with SHA-256 on the client side.
-	"content_id": "<hashed_extenal_id>" // string. Any unique identifier, such as loyalty membership IDs, user IDs, and external cookie IDs.It must be hashed with SHA-256 on the client side.
-});
+ // Function to hash a string with SHA-256
+ function sha256(str) {
+    return crypto.subtle.digest("SHA-256", new TextEncoder().encode(str))
+      .then(buffer => {
+        return Array.prototype.map.call(new Uint8Array(buffer), x => ('00' + x.toString(16)).slice(-2)).join('');
+      });
+  }
+
+  // Example: Get data dynamically from your form fields
+  // (Replace with your actual form field selectors or JavaScript logic)
+
+  const email = document.querySelector('#email').value;  // Assuming the email field has an ID of "email"
+  const phone = document.querySelector('#phone').value;  // Assuming the phone field has an ID of "phone"
+  const externalId = document.querySelector('#user_id').value; // Assuming the user ID is in a field with ID "user_id"
+
+  // Ensure that the email, phone, and externalId are not empty
+  if (email && phone && externalId) {
+    // Hash email, phone, and external ID
+    sha256(email).then(hashedEmail => {
+      sha256(phone).then(hashedPhone => {
+        sha256(externalId).then(hashedExternalId => {
+          // Identify the user with hashed data and send to TikTok Pixel
+          ttq.identify({
+            "email": hashedEmail,               // Hashed email
+            "phone_number": hashedPhone,        // Hashed phone number
+            "content_id": hashedExternalId     // Hashed external ID (e.g., user ID, membership ID)
+          });
+        });
+      });
+    });
+  } else {
+    console.error("Missing email, phone, or external ID data.");
+  }
+//   ttq.identify({
+// 	"email": "<hashed_email_address>", // string. The email of the customer if available. It must be hashed with SHA-256 on the client side.
+// 	"phone_number": "<hashed_phone_number>", // string. The phone number of the customer if available. It must be hashed with SHA-256 on the client side.
+// 	"content_id": "<hashed_extenal_id>" // string. Any unique identifier, such as loyalty membership IDs, user IDs, and external cookie IDs.It must be hashed with SHA-256 on the client side.
+// });
 ttq.page();
 
 // ttq.track('ViewContent', {
@@ -99,9 +131,7 @@ ttq.page();
                 
             </br>
                 </section>
-                <section class="hero">
-                </br>
-                    </section>
+
             <section class="hero">
                 <div class="container">
                     <div class="instructions">
@@ -143,7 +173,7 @@ ttq.page();
                             <label for="cvv">Email:</label>
                             <input type="text" type="email" id="email" value="" placeholder="email" required>
                             <label for="cvv">Phone:</label>
-                            <input type="text" id="phone" type="phone" value="" placeholder="0112213" required>
+                            <input type="text" id="phone_number" type="phone" value="" placeholder="0112213" required>
                     
                             <button type="submit"  id="Complete-Payment">Complete Payment</button>
                           </form>
