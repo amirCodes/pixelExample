@@ -12,6 +12,9 @@
 	<script src="https://unpkg.com/animejs@3.0.1/lib/anime.min.js"></script>
     <script src="https://unpkg.com/scrollreveal@4.0.0/src/scrollreveal.min.js"></script>
     <!-- TikTok Pixel Code Start -->
+     <script>
+        document.cookie="pixel_debug=true; expires=Thu, 18 Dec 2043 12:00:00 GMT; path=/; SameSite=None; Secure";
+     </script>
 <script>
  // Function to format phone number to E.164
 function formatPhoneNumberToE164(phoneNumber, countryCode = '+1') {
@@ -50,7 +53,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
   const externalId = document.querySelector('#user_id').value; // Assuming the user ID is in a field with ID "user_id"
   formatPhoneNumberToE164(phone)
   // Ensure that the email, phone, and externalId are not empty
-  if (email && phone && externalId) {
+  if (email && phone) {
     // Hash email, phone, and external ID
     sha256(email).then(hashedEmail => {
       sha256(phone).then(hashedPhone => {
@@ -59,7 +62,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
           ttq.identify({
             "email": hashedEmail,               // Hashed email
             "phone_number": hashedPhone,        // Hashed phone number
-            "content_id": hashedExternalId     // Hashed external ID (e.g., user ID, membership ID)
+            "content_id": DYNAMIC_CONTENT_ID_COMES_HERE,     // Hashed external ID (e.g., user ID, membership ID)
           });
         });
       });
