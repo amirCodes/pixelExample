@@ -58,7 +58,38 @@
     var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script")
     ;n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
     
-    
+    function sha256(str) {
+    return crypto.subtle.digest("SHA-256", new TextEncoder().encode(str))
+      .then(buffer => {
+        return Array.prototype.map.call(new Uint8Array(buffer), x => ('00' + x.toString(16)).slice(-2)).join('');
+      });
+  }
+
+  // Example: Get data dynamically from your form fields
+  // (Replace with your actual form field selectors or JavaScript logic)
+
+  const email = document.querySelector('#email').value;  // Assuming the email field has an ID of "email"
+  const phone = document.querySelector('#phone').value;  // Assuming the phone field has an ID of "phone"
+  const externalId = document.querySelector('#user_id').value; // Assuming the user ID is in a field with ID "user_id"
+  formatPhoneNumberToE164(phone)
+  // Ensure that the email, phone, and externalId are not empty
+  if (email && phone) {
+    // Hash email, phone, and external ID
+    sha256(email).then(hashedEmail => {
+      sha256(phone).then(hashedPhone => {
+        sha256(externalId).then(hashedExternalId => {
+          // Identify the user with hashed data and send to TikTok Pixel
+          ttq.identify({
+            "email": hashedEmail,               // Hashed email
+            "phone_number": hashedPhone,        // Hashed phone number
+            "content_id": DYNAMIC_CONTENT_ID_COMES_HERE,     // Hashed external ID (e.g., user ID, membership ID)
+          });
+        });
+      });
+    });
+  } else {
+    console.error("Missing email, phone, or external ID data.");
+  }
       ttq.load('CV6K1LJC77UBQPUEJTT0');
       ttq.page();
     }(window, document, 'ttq');
