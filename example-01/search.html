@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .search-box {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .search-box input {
+            padding: 10px;
+            width: 70%;
+            font-size: 16px;
+        }
+        .search-box button {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        .search-results {
+            margin-top: 20px;
+        }
+        .result-item {
+            padding: 10px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            background-color: #fafafa;
+        }
+        .result-item h3 {
+            margin: 0;
+        }
+    </style>
+    <!-- TikTok Pixel Code Start -->
+<script>
+    !function (w, d, t) {
+      w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(
+    var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script")
+    ;n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+    
+    
+      ttq.load('CV6K1LJC77UBQPUEJTT0');
+      ttq.page();
+    }(window, document, 'ttq');
+    </script>
+    <!-- TikTok Pixel Code End -->
+</head>
+<body>
+    <div class="container">
+        <h1>Search Results</h1>
+
+        <!-- Search Box -->
+        <div class="search-box">
+            <input type="text" id="search-input" placeholder="Enter keyword..." value="">
+            <button onclick="searchContent()">Search</button>
+        </div>
+         <div>
+            <a href="/example-01/" class="heref">back home</a>
+         </div>
+        <!-- Display Results Here -->
+        <div class="search-results" id="search-results">
+            <!-- Results will be displayed dynamically here -->
+        </div>
+    </div>
+
+    <script>
+        // Sample data (titles and descriptions) for demonstration
+        const data = [
+            { title: "JavaScript for Beginners", description: "Learn JavaScript from scratch and build interactive web applications." },
+            { title: "Advanced CSS", description: "Master CSS techniques to create beautiful and responsive layouts." },
+            { title: "HTML5 Guide", description: "An in-depth look at HTML5, its new features, and how to use them." },
+            { title: "Web Development Trends", description: "Stay updated with the latest trends in web development, including new technologies and tools." },
+            { title: "Node.js for Backend Development", description: "Learn how to use Node.js to build server-side applications." },
+            { title: "React.js: A JavaScript Library", description: "Build user interfaces with React and understand its component-based architecture." },
+            { title: "CSS Grid vs Flexbox", description: "Learn the differences and when to use CSS Grid or Flexbox for layouts." },
+            { title: "Vue.js for Beginners", description: "Start building reactive web apps with Vue.js, a popular JavaScript framework." },
+            { title: "Responsive Design Principles", description: "Understand the principles of responsive web design and how to implement them." },
+            { title: "Web Accessibility", description: "Learn how to make your websites accessible to all users, including those with disabilities." },
+        ];
+
+        // Function to display search results
+        function displayResults(results) {
+            const resultsContainer = document.getElementById("search-results");
+            resultsContainer.innerHTML = '';  // Clear previous results
+
+            if (results.length === 0) {
+                resultsContainer.innerHTML = '<p>No results found.</p>';
+            } else {
+                results.forEach(result => {
+                    const resultItem = document.createElement("div");
+                    resultItem.classList.add("result-item");
+                    resultItem.innerHTML = `<h3>${result.title}</h3><p>${result.description}</p>`;
+                    resultsContainer.appendChild(resultItem);
+                });
+            }
+        }
+
+        // Function to handle the search functionality
+        function searchContent() {
+            const keyword = document.getElementById("search-input").value.trim().toLowerCase();
+            if (keyword === "") {
+                displayResults(data); // If the input is empty, show all data
+            } else {
+                const filteredResults = data.filter(item =>
+                    item.title.toLowerCase().includes(keyword) ||
+                    item.description.toLowerCase().includes(keyword)
+                );
+                displayResults(filteredResults);
+            }
+        }
+
+        // On page load, check if there is a keyword in the URL and perform the search
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const keywordFromUrl = urlParams.get('keyword');
+            if (keywordFromUrl) {
+                document.getElementById("search-input").value = keywordFromUrl;
+                searchContent();  // Trigger search with the URL parameter
+            } else {
+                displayResults(data);  // Show all data when there's no keyword
+            }
+        };
+    </script>
+</body>
+</html>
