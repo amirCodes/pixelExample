@@ -160,11 +160,23 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
                 
             </br>
                 </section>
-                <section class="hero">
-
-                    </section>
+                
             <section class="hero">
                 <div class="container">
+                    <section class="containerSearch" style="padding: 4em;";">
+                        <h1>Search Results</h1>
+    
+                        <!-- Search Box -->
+                        <div class="search-box">
+                            <input type="text" id="search-input" placeholder="Enter keyword..." value="">
+                            <button onclick="searchContent()">Search</button>
+                        </div>
+                
+                        <!-- Display Results Here -->
+                        <div class="search-results" id="search-results">
+                            <!-- Results will be displayed dynamically here -->
+                        </div>
+                        </section>
                     <div class="instructions">
                             <h1>Mock E-Commerce Store</h1>
                             <a href="/example-01/search.html" class="href">go to search</a>
@@ -414,7 +426,64 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
             </div>
         </footer>
     </div>
+    <script>
+        // Sample data (titles and descriptions) for demonstration
+        const data = [
+            { title: "JavaScript for Beginners", description: "Learn JavaScript from scratch and build interactive web applications." },
+            { title: "Advanced CSS", description: "Master CSS techniques to create beautiful and responsive layouts." },
+            { title: "HTML5 Guide", description: "An in-depth look at HTML5, its new features, and how to use them." },
+            { title: "Web Development Trends", description: "Stay updated with the latest trends in web development, including new technologies and tools." },
+            { title: "Node.js for Backend Development", description: "Learn how to use Node.js to build server-side applications." },
+            { title: "React.js: A JavaScript Library", description: "Build user interfaces with React and understand its component-based architecture." },
+            { title: "CSS Grid vs Flexbox", description: "Learn the differences and when to use CSS Grid or Flexbox for layouts." },
+            { title: "Vue.js for Beginners", description: "Start building reactive web apps with Vue.js, a popular JavaScript framework." },
+            { title: "Responsive Design Principles", description: "Understand the principles of responsive web design and how to implement them." },
+            { title: "Web Accessibility", description: "Learn how to make your websites accessible to all users, including those with disabilities." },
+        ];
 
+        // Function to display search results
+        function displayResults(results) {
+            const resultsContainer = document.getElementById("search-results");
+            resultsContainer.innerHTML = '';  // Clear previous results
+
+            if (results.length === 0) {
+                resultsContainer.innerHTML = '<p>No results found.</p>';
+            } else {
+                results.forEach(result => {
+                    const resultItem = document.createElement("div");
+                    resultItem.classList.add("result-item");
+                    resultItem.innerHTML = `<h3>${result.title}</h3><p>${result.description}</p>`;
+                    resultsContainer.appendChild(resultItem);
+                });
+            }
+        }
+
+        // Function to handle the search functionality
+        function searchContent() {
+            const keyword = document.getElementById("search-input").value.trim().toLowerCase();
+            if (keyword === "") {
+                displayResults(data); // If the input is empty, show all data
+            } else {
+                const filteredResults = data.filter(item =>
+                    item.title.toLowerCase().includes(keyword) ||
+                    item.description.toLowerCase().includes(keyword)
+                );
+                displayResults(filteredResults);
+            }
+        }
+
+        // On page load, check if there is a keyword in the URL and perform the search
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const keywordFromUrl = urlParams.get('keyword');
+            if (keywordFromUrl) {
+                document.getElementById("search-input").value = keywordFromUrl;
+                searchContent();  // Trigger search with the URL parameter
+            } else {
+                displayResults(data);  // Show all data when there's no keyword
+            }
+        };
+    </script>
     <script src="src/js/main.min.js"></script>
 </body>
 </html>
